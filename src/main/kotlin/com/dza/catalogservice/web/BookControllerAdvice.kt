@@ -14,11 +14,11 @@ class BookControllerAdvice {
 
     @ExceptionHandler(BookNotFoundException::class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    fun bookNotFoundHandler(exception: BookNotFoundException): String = exception.message!!
+    fun bookNotFoundHandler(exception: BookNotFoundException): String = exception.message ?: "The book was not found."
 
     @ExceptionHandler(BookAlreadyExistsException::class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    fun bookAlreadyExistsHandler(exception: BookAlreadyExistsException): String = exception.message!!
+    fun bookAlreadyExistsHandler(exception: BookAlreadyExistsException): String = exception.message ?: "The book already exists."
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

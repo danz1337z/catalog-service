@@ -1,6 +1,7 @@
 package com.polarbookshop.catalogservice
 
-import com.polarbookshop.catalogservice.domain.Book
+import com.polarbookshop.catalogservice.domain.BookDTO
+import com.polarbookshop.catalogservice.domain.BookUpdateCreateDTo
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
@@ -16,15 +17,15 @@ class CatalogServiceApplicationTests {
 
 	@Test
 	fun `when post request then book created`() {
-		val expectedBook = Book("1231231231", "Title", "Author", 9.90)
+		val expectedBookDTO = BookUpdateCreateDTo("1231231231", "Title", "Author", 9.90)
 		webTestClient.post()
 			.uri("/books")
-			.bodyValue(expectedBook)
+			.bodyValue(expectedBookDTO)
 			.exchange()
 			.expectStatus().isCreated()
-			.expectBody(Book::class.java).value { actualBook ->
+			.expectBody(BookUpdateCreateDTo::class.java).value { actualBook ->
 				assertNotNull(actualBook)
-				assertEquals(expectedBook.isbn, actualBook.isbn)
+				assertEquals(expectedBookDTO.isbn, actualBook.isbn)
 			}
 	}
 

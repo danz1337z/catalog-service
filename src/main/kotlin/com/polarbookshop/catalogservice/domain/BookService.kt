@@ -6,28 +6,29 @@ import org.springframework.stereotype.Service
 class BookService(
     private val bookRepository: BookRepository
 ) {
-    fun viewBookList(): Iterable<Book> = bookRepository.findAll()
+    fun viewBookList(): Iterable<BookDTO> = bookRepository.findAll()
 
-    fun viewBookDetails(isbn: String): Book? = bookRepository.findByIsbn(isbn) ?: throw BookNotFoundException(isbn)
+    fun viewBookDetails(isbn: String): BookDTO? = bookRepository.findByIsbn(isbn) ?: throw BookNotFoundException(isbn)
 
-    fun addBookToCatalog(book: Book): Book {
-        if (bookRepository.existsByIsbn(book.isbn)) {
-            throw BookAlreadyExistsException(book.isbn)
+    fun addBookToCatalog(bookDTO: BookUpdateCreateDTo): BookDTO {
+        if (bookRepository.existsByIsbn(bookDTO.isbn)) {
+            throw BookAlreadyExistsException(bookDTO.isbn)
         }
-        return bookRepository.save(book)
+        return bookRepository.save(bookDTO)
     }
 
     fun removeBookFromCatalog(isbn: String) = bookRepository.deleteByIsbn(isbn)
 
-    fun editBookDetails(isbn: String, book: Book): Book {
+    fun editBookDetails(isbn: String, bookDTO: BookUpdateCreateDTo): BookDTO {
         val existingBook = bookRepository.findByIsbn(isbn)
         return existingBook?.let {
-            val bookToUpdate = it.copy(
-                title = book.title,
-                author = book.author,
-                price = book.price
+            val bookToUpdate = BookUpdateCreateDTo(
+                isbn = isbn,
+                title = bookDTO.title,
+                author = bookDTO.author,
+                price = bookDTO.price,
             )
             bookRepository.save(bookToUpdate)
-        } ?: addBookToCatalog(book)
+        } ?: addBookToCatalog(bookDTO)
     }
 }

@@ -1,9 +1,9 @@
 package com.polarbookshop.catalogservice.domain
 
 interface BookRepository {
-    fun findAll(): Iterable<Book>
-    fun findByIsbn(isbn: String): Book?
+    fun findAll(): Iterable<BookDTO>
+    fun findByIsbn(isbn: String): BookDTO?
     fun existsByIsbn(isbn: String): Boolean
-    fun save(book: Book): Book
+    fun save(bookDTO: BookUpdateCreateDTo): BookDTO
     fun deleteByIsbn(isbn: String)
 }

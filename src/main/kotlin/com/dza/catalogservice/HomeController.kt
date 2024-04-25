@@ -1,11 +1,12 @@
 package com.dza.catalogservice
 
+import com.dza.catalogservice.config.PolarProperties
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class HomeController {
+class HomeController(val polarProperties: PolarProperties) {
 
     @GetMapping("/")
-    fun getGreeting(): String = "Welcome to the book catalog!"
+    fun getGreeting(): String = polarProperties.greeting
 }

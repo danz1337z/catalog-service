@@ -4,8 +4,13 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Positive
+import org.springframework.data.annotation.Id
+import org.springframework.data.annotation.Version
 
 data class Book(
+
+    @Id
+    val id: Long?,
 
     @get:NotBlank(message = "The book ISBN must be defined.")
     @get:Pattern(
@@ -23,4 +28,14 @@ data class Book(
     @get:NotNull(message = "The book price must be defined")
     @get:Positive(message = "The book price must be greater than zero")
     val price: Double,
-)
+
+    @Version
+    val version: Int,
+) {
+    constructor(
+        isbn: String,
+        title: String,
+        author: String,
+        price: Double
+    ) : this(null, isbn, title, author, price, 0)
+}

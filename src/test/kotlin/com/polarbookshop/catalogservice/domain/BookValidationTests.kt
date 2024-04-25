@@ -1,4 +1,4 @@
-package com.dza.catalogservice.domain
+package com.polarbookshop.catalogservice.domain
 
 import jakarta.validation.ConstraintViolation
 import jakarta.validation.Validation

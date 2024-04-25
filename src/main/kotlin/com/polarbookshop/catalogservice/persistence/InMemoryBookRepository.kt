@@ -1,7 +1,7 @@
-package com.dza.catalogservice.persistence
+package com.polarbookshop.catalogservice.persistence
 
-import com.dza.catalogservice.domain.Book
-import com.dza.catalogservice.domain.BookRepository
+import com.polarbookshop.catalogservice.domain.Book
+import com.polarbookshop.catalogservice.domain.BookRepository
 import org.springframework.stereotype.Repository
 import java.util.concurrent.ConcurrentHashMap
 

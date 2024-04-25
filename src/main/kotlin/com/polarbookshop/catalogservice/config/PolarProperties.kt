@@ -1,4 +1,4 @@
-package com.dza.catalogservice.config
+package com.polarbookshop.catalogservice.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 

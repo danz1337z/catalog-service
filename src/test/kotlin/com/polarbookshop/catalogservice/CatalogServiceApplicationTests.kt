@@ -1,6 +1,6 @@
-package com.dza.catalogservice
+package com.polarbookshop.catalogservice
 
-import com.dza.catalogservice.domain.Book
+import com.polarbookshop.catalogservice.domain.Book
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test

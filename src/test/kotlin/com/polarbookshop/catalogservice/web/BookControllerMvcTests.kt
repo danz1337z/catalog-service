@@ -1,7 +1,7 @@
-package com.dza.catalogservice.web
+package com.polarbookshop.catalogservice.web
 
-import com.dza.catalogservice.domain.BookNotFoundException
-import com.dza.catalogservice.domain.BookService
+import com.polarbookshop.catalogservice.domain.BookNotFoundException
+import com.polarbookshop.catalogservice.domain.BookService
 import org.junit.jupiter.api.Test
 import org.mockito.BDDMockito.given
 import org.springframework.beans.factory.annotation.Autowired

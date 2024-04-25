@@ -1,4 +1,4 @@
-package com.dza.catalogservice.domain
+package com.polarbookshop.catalogservice.domain
 
 interface BookRepository {
     fun findAll(): Iterable<Book>

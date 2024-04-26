@@ -5,12 +5,9 @@ import com.polarbookshop.catalogservice.domain.BookRepository
 import com.polarbookshop.catalogservice.domain.BookUpdateCreateDTo
 import com.polarbookshop.catalogservice.domain.models.Book
 import jakarta.annotation.PostConstruct
-import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.deleteWhere
-import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
-import org.jetbrains.exposed.sql.upsert
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationContext
@@ -51,15 +48,27 @@ class ExposedRepository : BookRepository {
     }
 
     override fun save(bookDTO: BookUpdateCreateDTo): BookDTO {
-        transaction(database) {
-            Book.upsert {
-                it[isbn] = bookDTO.isbn
-                it[title] = bookDTO.title
-                it[author] = bookDTO.author
-                it[price] = bookDTO.price
-            }
-        }
-        return findByIsbn(bookDTO.isbn)!!
+       return transaction(database) {
+           val book = BookDTO(0, bookDTO.isbn, bookDTO.title, bookDTO.author, bookDTO.price, 0)
+           val existingBook = findByIsbn(book.isbn)
+
+           if (existingBook != null) {
+               Book.update({Book.isbn eq book.isbn}) {
+                   it[title] = book.title
+                   it[author] = book.author
+                   it[price] = book.price
+                   it[version] = existingBook.version.plus(1)
+               }
+           } else {
+               Book.insert {
+                   it[isbn] = book.isbn
+                   it[title] = book.title
+                   it[author] = book.author
+                   it[price] = book.price
+               }
+           }
+           findByIsbn(book.isbn)!!
+       }
     }
 
     override fun deleteByIsbn(isbn: String) {

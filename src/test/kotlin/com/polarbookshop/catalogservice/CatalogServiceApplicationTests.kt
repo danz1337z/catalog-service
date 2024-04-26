@@ -18,7 +18,7 @@ class CatalogServiceApplicationTests {
 
 	@Test
 	fun `when post request then book created`() {
-		val expectedBookDTO = BookUpdateCreateDTo("1231231231", "Title", "Author", 9.90)
+		val expectedBookDTO = BookUpdateCreateDTo("1231231231", "Title", "Author", 9.90, "Publisher")
 		webTestClient.post()
 			.uri("/books")
 			.bodyValue(expectedBookDTO)

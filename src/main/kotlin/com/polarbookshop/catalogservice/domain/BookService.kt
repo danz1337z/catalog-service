@@ -27,6 +27,7 @@ class BookService(
                 title = bookDTO.title,
                 author = bookDTO.author,
                 price = bookDTO.price,
+                publisher = bookDTO.publisher,
             )
             bookRepository.save(bookToUpdate)
         } ?: addBookToCatalog(bookDTO)

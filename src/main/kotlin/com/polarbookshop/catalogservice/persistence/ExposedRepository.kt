@@ -57,6 +57,7 @@ class ExposedRepository : BookRepository {
                     it[title] = bookDTO.title
                     it[author] = bookDTO.author
                     it[price] = bookDTO.price
+                    it[publisher] = bookDTO.publisher
                     it[version] = existingBook.version.plus(1)
                     it[lastModifiedDate] = LocalDateTime.now()
                 }
@@ -66,6 +67,7 @@ class ExposedRepository : BookRepository {
                     it[title] = bookDTO.title
                     it[author] = bookDTO.author
                     it[price] = bookDTO.price
+                    it[publisher] = bookDTO.publisher
                 }
             }
             findByIsbn(bookDTO.isbn)!!
@@ -86,11 +88,12 @@ class ExposedRepository : BookRepository {
 
     override fun saveAll(bookDTOs: List<BookUpdateCreateDTo>) {
         transaction(database) {
-            Book.batchInsert(bookDTOs) { (isbn, title, author, price ) ->
+            Book.batchInsert(bookDTOs) { (isbn, title, author, price, publisher ) ->
                 this[Book.isbn] = isbn
                 this[Book.title] = title
                 this[Book.author] = author
                 this[Book.price] = price
+                this[Book.publisher] = publisher
             }
         }
     }

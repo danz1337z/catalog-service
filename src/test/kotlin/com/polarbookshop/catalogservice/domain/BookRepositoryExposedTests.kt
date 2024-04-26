@@ -17,7 +17,7 @@ class BookRepositoryExposedTests {
     @Test
     fun `find  book by isbn when it exists`() {
         val bookIsbn = "1234567890"
-        val book = BookUpdateCreateDTo(bookIsbn, "Title", "Author", 12.90)
+        val book = BookUpdateCreateDTo(bookIsbn, "Title", "Author", 12.90, "Publisher")
         repository.save(book)
         val actualBook = repository.findByIsbn(bookIsbn)
 

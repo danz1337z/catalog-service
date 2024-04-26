@@ -24,7 +24,7 @@ class BookRepositoryJdbcTests {
     @Test
     fun `find  book by isbn when it exists`() {
         val bookIsbn = "1234567890"
-        val book = BookUpdateCreateDTo(bookIsbn, "Title", "Author", 12.90)
+        val book = BookUpdateCreateDTo(bookIsbn, "Title", "Author", 12.90, null)
         jdbcAggregateTemplate.insert(book)
         val actualBook = repository.findByIsbn(bookIsbn)
 

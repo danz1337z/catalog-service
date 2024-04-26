@@ -20,6 +20,7 @@ data class BookDTO(
     val title: String,
     val author: String,
     val price: Double,
+    val publisher: String?,
     @CreatedDate
     val createdDate: LocalDateTime,
     @LastModifiedDate
@@ -33,6 +34,7 @@ data class BookDTO(
         it[Book.title],
         it[Book.author],
         it[Book.price],
+        it[Book.publisher],
         it[Book.createdDate],
         it[Book.lastModifiedDate],
         it[Book.version],
@@ -53,4 +55,5 @@ data class BookUpdateCreateDTo(
     @get:NotNull(message = "The book price must be defined")
     @get:Positive(message = "The book price must be greater than zero")
     val price: Double,
+    val publisher: String?,
 )

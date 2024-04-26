@@ -9,6 +9,7 @@ plugins {
 
 ext {
 	springCloudVersion = "2023.0.1"
+	testcontainersVersion = "1.19.7"
 }
 
 group = 'com.polarbookshop'
@@ -46,14 +47,18 @@ dependencies {
 	implementation 'org.jetbrains.exposed:exposed-jdbc:0.49.0'
 	implementation 'org.jetbrains.exposed:exposed-java-time:0.49.0'
 	implementation 'org.jetbrains.exposed:exposed-spring-boot-starter:0.49.0'
+	implementation 'org.flywaydb:flyway-core'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
+	testImplementation 'org.testcontainers:postgresql'
+	testImplementation("org.testcontainers:testcontainers")
 	runtimeOnly 'org.postgresql:postgresql'
 }
 
 dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
+		mavenBom "org.testcontainers:testcontainers-bom:${testcontainersVersion}"
 	}
 }
 

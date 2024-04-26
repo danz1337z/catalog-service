@@ -6,8 +6,11 @@ import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Positive
 import org.jetbrains.exposed.sql.ResultRow
+import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.Id
+import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.annotation.Version
+import java.time.LocalDateTime
 
 data class BookDTO(
 
@@ -17,6 +20,10 @@ data class BookDTO(
     val title: String,
     val author: String,
     val price: Double,
+    @CreatedDate
+    val createdDate: LocalDateTime,
+    @LastModifiedDate
+    val lastModifiedDate: LocalDateTime,
     @Version
     val version: Int,
 ) {
@@ -26,6 +33,8 @@ data class BookDTO(
         it[Book.title],
         it[Book.author],
         it[Book.price],
+        it[Book.createdDate],
+        it[Book.lastModifiedDate],
         it[Book.version],
     )
 }

@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationContext
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 import javax.sql.DataSource
 
 @Service
@@ -49,25 +50,25 @@ class ExposedRepository : BookRepository {
 
     override fun save(bookDTO: BookUpdateCreateDTo): BookDTO {
        return transaction(database) {
-           val book = BookDTO(0, bookDTO.isbn, bookDTO.title, bookDTO.author, bookDTO.price, 0)
-           val existingBook = findByIsbn(book.isbn)
+           val existingBook = findByIsbn(bookDTO.isbn)
 
            if (existingBook != null) {
-               Book.update({Book.isbn eq book.isbn}) {
-                   it[title] = book.title
-                   it[author] = book.author
-                   it[price] = book.price
+               Book.update({Book.isbn eq bookDTO.isbn}) {
+                   it[title] = bookDTO.title
+                   it[author] = bookDTO.author
+                   it[price] = bookDTO.price
                    it[version] = existingBook.version.plus(1)
+                   it[lastModifiedDate] = LocalDateTime.now()
                }
            } else {
                Book.insert {
-                   it[isbn] = book.isbn
-                   it[title] = book.title
-                   it[author] = book.author
-                   it[price] = book.price
+                   it[isbn] = bookDTO.isbn
+                   it[title] = bookDTO.title
+                   it[author] = bookDTO.author
+                   it[price] = bookDTO.price
                }
            }
-           findByIsbn(book.isbn)!!
+           findByIsbn(bookDTO.isbn)!!
        }
     }
 

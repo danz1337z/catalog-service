@@ -6,4 +6,6 @@ interface BookRepository {
     fun existsByIsbn(isbn: String): Boolean
     fun save(bookDTO: BookUpdateCreateDTo): BookDTO
     fun deleteByIsbn(isbn: String)
+    fun deleteAll()
+    fun saveAll(bookDTOs: List<BookUpdateCreateDTo>)
 }

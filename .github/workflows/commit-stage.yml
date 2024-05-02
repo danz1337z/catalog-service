@@ -3,7 +3,7 @@ on: push
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: danza1337z/catalog-service
+  IMAGE_NAME: danz1337z/catalog-service
   VERSION: latest
 
 jobs:

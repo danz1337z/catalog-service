@@ -1,4 +1,6 @@
 spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 15
   application:
     name: catalog-service
   config:
@@ -24,12 +26,14 @@ spring:
   flyway:
     baseline-on-migrate: true
 server:
+  port: 9001
   tomcat:
     connection-timeout: 2s
     keep-alive-timeout: 15s
     threads:
       max: 50
       min-spare: 5
+  shutdown: graceful
 polar:
   greeting: Welcome to the local book catalog!
 management:
